@@ -1,0 +1,20 @@
+.textInputContainer {
+    
+}
+.textInputContainer input[type="text"] {
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.multiSelect {
+
+}
+.multiSelect select {
+    padding: 8px;
+    font-size: 18px;
+    width: 100%;
+    border: 0px;
+    border: 1px solid lightgray;
+}
