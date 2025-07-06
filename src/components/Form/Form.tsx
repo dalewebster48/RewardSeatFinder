@@ -12,23 +12,3 @@ export function TextInput(props: TextInputProps) {
         </div>
     )
 }
-
-export interface MultiSelectProps {
-    values?: string[]
-}
-
-export function MultiSelect(props: MultiSelectProps) {
-    const items = props.values?.map(item => {
-        return <option value={item} key={item}>
-            { item }
-        </option>
-    })
-
-    return (
-        <div className={styles.multiSelect}>
-            <select multiple>
-                { items }
-            </select>
-        </div>
-    )
-}

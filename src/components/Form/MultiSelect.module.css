@@ -1,0 +1,12 @@
+.select {
+    border: 1px solid lightgray;
+}
+.item {
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.item.selected {
+    color: white;
+    background-color: rgb(7, 83, 107);
+}
