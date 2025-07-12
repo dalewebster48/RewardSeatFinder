@@ -7,6 +7,10 @@ export default interface Flight {
     end: Airport
 
     economy_cost: string
-    premium_cosnt: string
+    premium_cost: string
     upper_cost: string
+
+    economy_deal: boolean
+    premium_deal: boolean
+    upper_deal: boolean
 }

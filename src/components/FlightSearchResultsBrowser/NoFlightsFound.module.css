@@ -1,0 +1,99 @@
+/* No flights found styling */
+.noResults {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.noResultsIcon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+@keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.noResultsTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.noResultsMessage {
+    font-size: 1rem;
+    color: var(--gray-600);
+    max-width: 450px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.suggestions {
+    max-width: 400px;
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--gray-200);
+}
+
+.suggestionsTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.suggestionsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestionsList li {
+    padding: 0.5rem 0;
+    color: var(--gray-700);
+    font-size: 0.9rem;
+    text-align: left;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.suggestionsList li::before {
+    content: "💡";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+}
+
+.suggestionsList li:not(:last-child) {
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .noResults {
+        padding: 2rem 1rem;
+    }
+    
+    .noResultsIcon {
+        font-size: 3rem;
+    }
+    
+    .noResultsTitle {
+        font-size: 1.25rem;
+    }
+    
+    .suggestions {
+        max-width: 100%;
+        padding: 1rem;
+    }
+}

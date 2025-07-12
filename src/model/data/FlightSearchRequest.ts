@@ -6,6 +6,19 @@ interface FlightSearchRequest {
 
     dateAfterInclusive?: string
     dateBeforeInclusive?: string
+
+    economyDeal?: boolean
+    premiumDeal?: boolean
+    upperDeal?: boolean
+
+    economyCostGte?: number
+    economyCostLte?: number
+
+    premiumCostGte?: number
+    premiumCostLte?: number
+
+    upperCostGte?: number
+    upperCostLte?: number
 }
 
 export default FlightSearchRequest

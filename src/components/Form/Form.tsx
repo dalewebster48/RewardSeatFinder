@@ -12,3 +12,19 @@ export function TextInput(props: TextInputProps) {
         </div>
     )
 }
+
+export interface NumberInputProps {
+    label: string
+    onChange?: (value: number) => void
+}
+
+export function NumberInput(props: NumberInputProps) {
+    return (
+        <div className={styles.numberInputContainer}>
+            <label>
+                { props.label }
+            </label>
+            <input type="number" onChange={e => props.onChange?.(Number(e.target.value))} />
+        </div>
+    )
+}

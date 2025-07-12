@@ -1,9 +1,67 @@
 .textInputContainer {
-    
+    margin-bottom: 0.75rem;
 }
+
 .textInputContainer input[type="text"] {
-    padding: 10px;
-    border: 1px solid lightgray;
-    border-radius: 4px;
     width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.textInputContainer input[type="text"]:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px var(--primary-blue-light);
+    outline: none;
+}
+
+.textInputContainer input[type="text"]:hover {
+    border-color: var(--gray-400);
+}
+
+.numberInputContainer {
+    margin-bottom: 0.75rem;
+}
+
+.numberInputContainer label {
+    display: block;
+    font-weight: 500;
+    color: var(--gray-700);
+    margin-bottom: 0.375rem;
+    font-size: 0.825rem;
+}
+
+.numberInputContainer input[type="number"] {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.numberInputContainer input[type="number"]:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px var(--primary-blue-light);
+    outline: none;
+}
+
+.numberInputContainer input[type="number"]:hover {
+    border-color: var(--gray-400);
+}
+
+/* Remove spinner arrows for number inputs */
+.numberInputContainer input[type="number"]::-webkit-outer-spin-button,
+.numberInputContainer input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.numberInputContainer input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
 }

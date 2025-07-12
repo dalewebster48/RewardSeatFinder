@@ -1,0 +1,20 @@
+.search {
+    padding: 1rem 1.5rem;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.search p {
+    margin: 0.25rem 0;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.search p:first-child::before {
+    content: "🛫 ";
+}
+
+.search p:last-child::before {
+    content: "🛬 ";
+}

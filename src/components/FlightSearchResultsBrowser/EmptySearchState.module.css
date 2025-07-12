@@ -1,0 +1,91 @@
+/* Empty search state styling */
+.emptyState {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.emptyStateIcon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.emptyStateTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.emptyStateMessage {
+    font-size: 1.1rem;
+    color: var(--gray-600);
+    max-width: 400px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.emptyStateSteps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 350px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--primary-blue-light);
+    border-radius: var(--radius-lg);
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.stepNumber {
+    width: 28px;
+    height: 28px;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments for empty state */
+@media (max-width: 768px) {
+    .emptyState {
+        padding: 2rem 1rem;
+    }
+    
+    .emptyStateIcon {
+        font-size: 3rem;
+    }
+    
+    .emptyStateTitle {
+        font-size: 1.25rem;
+    }
+    
+    .emptyStateMessage {
+        font-size: 1rem;
+    }
+    
+    .emptyStateSteps {
+        max-width: 100%;
+    }
+}

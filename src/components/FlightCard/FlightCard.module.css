@@ -1,0 +1,92 @@
+.flightCard {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+}
+
+.flightCard:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--primary-blue-light);
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-purple) 100%);
+    color: white;
+    padding: 1.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.info {
+    padding: 1.5rem;
+    background: var(--gray-50);
+}
+
+.date {
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date::before {
+    content: "📅";
+}
+
+.points {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.points > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--primary-blue);
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.points > div:nth-child(2) {
+    border-left-color: var(--secondary-purple);
+}
+
+.points > div:nth-child(3) {
+    border-left-color: var(--success);
+}
+
+.deal {
+    background: var(--success-light) !important;
+    color: var(--gray-800) !important;
+    border-left: 4px solid var(--success) !important;
+    font-weight: 600 !important;
+    position: relative;
+    border: 1px solid var(--success);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.deal::before {
+    content: "✨ DEAL";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: var(--success);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0 var(--radius-lg) 0 var(--radius-md);
+    letter-spacing: 0.05em;
+}

@@ -7,26 +7,34 @@ import { Suspense } from "react"
 export default function App() {
     return (
         <div className={styles.app}>
-            <FlightSearchRequestProvider>
-                <div className={styles.searchForm}>
-                    <Suspense fallback={
-                        <p>
-                            Loading...
-                        </p>
-                    }>
-                        <FlightSearchForm />
-                    </Suspense>
-                </div>
-                <div className={styles.searchResults}>
-                    <Suspense fallback={
-                        <p>
-                            Loading flights...
-                        </p>
-                    }>
-                        <FlightSearchResultsBrowser />
-                    </Suspense>
-                </div>
-            </FlightSearchRequestProvider>
+            <header className={styles.header}>
+                <h1 className={styles.title}>✈️ Flight Rewards Finder</h1>
+                <p className={styles.subtitle}>Discover amazing flight deals using your points and miles</p>
+            </header>
+            <main className={styles.main}>
+                <FlightSearchRequestProvider>
+                    <div className={styles.searchForm}>
+                        <Suspense fallback={
+                            <div className={styles.loading}>
+                                <div className={styles.spinner}></div>
+                                <p>Loading search form...</p>
+                            </div>
+                        }>
+                            <FlightSearchForm />
+                        </Suspense>
+                    </div>
+                    <div className={styles.searchResults}>
+                        <Suspense fallback={
+                            <div className={styles.loading}>
+                                <div className={styles.spinner}></div>
+                                <p>Loading flights...</p>
+                            </div>
+                        }>
+                            <FlightSearchResultsBrowser />
+                        </Suspense>
+                    </div>
+                </FlightSearchRequestProvider>
+            </main>
         </div>
     )
 }

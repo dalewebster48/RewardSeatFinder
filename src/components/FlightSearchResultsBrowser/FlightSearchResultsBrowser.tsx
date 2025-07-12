@@ -4,22 +4,42 @@ import styles from "./FlightSearchResultsBrowser.module.css"
 import { useSuspenseQuery } from "@apollo/client"
 import { useFlightSearchRequest } from "../../model/providers/FlightSearchProvider.js"
 import { dateToPicker } from "../../helpers/Date.js"
+import FlightCard from "../FlightCard/FlightCard.js"
+import EmptySearchState from "./EmptySearchState.js"
+import SearchDetailer from "../SearchDetailer/SearchDetailer.js"
+import NoFlightsFound from "./NoFlightsFound.js"
 
 function FlightSearchResultsBrowser() {
     const {
         request
     } = useFlightSearchRequest()
 
-    // if all search fields are empty then we don't wanna bother searching
-    if (
+    const missingAllLocale = (
         !request.startCountry &&
         !request.endCountry &&
         !request.startId &&
         !request.endId
-    ) {
-        return <p>
-            Be more specific
-        </p>
+    )
+
+    const missingPointRanges = (
+        !request.economyCostGte &&
+        !request.economyCostLte &&
+        !request.premiumCostGte &&
+        !request.premiumCostLte &&
+        !request.upperCostGte &&
+        !request.upperCostLte
+    )
+
+    // if all search fields are empty then we don't wanna bother searching
+    if (missingAllLocale && missingPointRanges) {
+        return <div className={styles.results}>
+            <div className={styles.header}>
+                <h2>
+                    Search for Flights
+                </h2>
+            </div>
+            <EmptySearchState />
+        </div>
     }
 
     const { data } = useSuspenseQuery(SEARCH_FLIGHTS, {
@@ -30,34 +50,44 @@ function FlightSearchResultsBrowser() {
                 endCountry: request.endCountry,
                 endId: request.endId,
                 dateAfterInclusive: request.dateAfterInclusive ?? dateToPicker(new Date()),
-                dateBeforeInclusive: request.dateBeforeInclusive
+                dateBeforeInclusive: request.dateBeforeInclusive,
+                economyDeal: request.economyDeal,
+                premiumDeal: request.premiumDeal,
+                upperDeal: request.upperDeal,
+                economyCostGte: request.economyCostGte,
+                economyCostLte: request.economyCostLte,
+                premiumCostGte: request.premiumCostGte,
+                premiumCostLte: request.premiumCostLte,
+                upperCostGte: request.upperCostGte,
+                upperCostLte: request.upperCostLte
             },
-            limit: 20
+            limit: 1
         }
     })
 
     const response = data as FlightSearchResponse
 
+    // Check if we have zero results
+    if (response.flights.length === 0) {
+        return <div className={styles.results}>
+            <div className={styles.header}>
+                <h2>
+                    Results
+                </h2>
+            </div>
+            <SearchDetailer request={request} />
+            <div className={styles.resultsCount}>
+                <p>
+                    Showing 0 flights
+                </p>
+            </div>
+            <NoFlightsFound />
+        </div>
+    }
+
     const resultsItems = response.flights.map(flight => {
         return <li key={flight.id}>
-            <p>
-                From: {flight.start.name}
-            </p>
-            <p>
-                To: {flight.end.name}
-            </p>
-            <p>
-                Date: {flight.date}
-            </p>
-            <p>
-                Economy: {flight.economy_cost}
-            </p>
-            <p>
-                Premium: {flight.premium_cosnt}
-            </p>
-            <p>
-                Upper Class: {flight.upper_cost}
-            </p>
+            <FlightCard flight={flight} />
         </li>
     })
 
@@ -67,12 +97,10 @@ function FlightSearchResultsBrowser() {
                 Results
             </h2>
         </div>
-        <div className={styles.search}>
+        <SearchDetailer request={request} />
+        <div className={styles.resultsCount}>
             <p>
-                From: {request.startCountry} - {request.startId}
-            </p>
-            <p>
-                To: {request.endCountry} - {request.endId}
+                Showing {response.flights.length} flights
             </p>
         </div>
         <div className={styles.resultsList}>

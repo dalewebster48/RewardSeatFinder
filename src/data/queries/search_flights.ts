@@ -5,9 +5,15 @@ const SEARCH_FLIGHTS = gql`
       flights(filter: $filter) {
         id,
         date,
+
         economy_cost
         premium_cost
         upper_cost
+
+        economy_deal
+        premium_deal
+        upper_deal
+
         start {
           name
         }
