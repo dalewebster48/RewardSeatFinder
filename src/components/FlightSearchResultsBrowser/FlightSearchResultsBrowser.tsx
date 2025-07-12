@@ -8,6 +8,7 @@ import FlightCard from "../FlightCard/FlightCard.js"
 import EmptySearchState from "./EmptySearchState.js"
 import SearchDetailer from "../SearchDetailer/SearchDetailer.js"
 import NoFlightsFound from "./NoFlightsFound.js"
+import FlightResultsOrderBy from "../FlightResultsOrderBy/FlightResultsOrerBy.js"
 
 function FlightSearchResultsBrowser() {
     const {
@@ -60,8 +61,7 @@ function FlightSearchResultsBrowser() {
                 premiumCostLte: request.premiumCostLte,
                 upperCostGte: request.upperCostGte,
                 upperCostLte: request.upperCostLte
-            },
-            limit: 1
+            }
         }
     })
 
@@ -103,6 +103,9 @@ function FlightSearchResultsBrowser() {
                 Showing {response.flights.length} flights
             </p>
         </div>
+        <FlightResultsOrderBy orderChanged={(order) => {
+            
+        }} />
         <div className={styles.resultsList}>
             <ul>
                 {resultsItems}
