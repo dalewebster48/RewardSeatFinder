@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import App from './app.js'
+import App from './components/App/app.js';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000', // Your GraphQL server URL

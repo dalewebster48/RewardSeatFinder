@@ -1,0 +1,12 @@
+.app {
+    display: flex;
+    flex-direction: row;
+}
+
+.searchForm{
+    flex: 3;
+}
+
+.searchResults {
+    flex: 4;
+}

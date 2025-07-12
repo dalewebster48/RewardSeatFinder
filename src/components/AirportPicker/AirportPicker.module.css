@@ -1,0 +1,11 @@
+.pickers {
+    display: flex;
+    flex-direction: column;
+}
+.picker {
+    height: 300px;
+    overflow: scroll;
+}
+.picker.small {
+    height: 200px;
+}
