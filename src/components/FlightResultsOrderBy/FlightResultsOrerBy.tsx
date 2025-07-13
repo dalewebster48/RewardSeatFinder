@@ -9,7 +9,7 @@ export interface FlightResultsOrderByProps {
 }
 
 function FlightResultsOrderBy(props: FlightResultsOrderByProps) {
-    const [orderCriteria, setOrderCriteria] = useState<FlightOrder | null>(null)
+    const [orderCriteria, setOrderCriteria] = useState<FlightOrder | null>(FlightOrder.DATE)
     const [order, setOrder] = useState<SortOrder>(SortOrder.Ascending)
 
     const orderSelected = (criteria: FlightOrder) => {

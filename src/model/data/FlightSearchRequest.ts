@@ -1,3 +1,6 @@
+import FlightOrder from "./FlightsOrder.js"
+import SortOrder from "./SortOrder.js"
+
 interface FlightSearchRequest {
     startCountry?: string
     endCountry?: string
@@ -19,6 +22,10 @@ interface FlightSearchRequest {
 
     upperCostGte?: number
     upperCostLte?: number
+
+    // order
+    flightCriteria?: FlightOrder
+    flightOrder?: SortOrder
 }
 
 export default FlightSearchRequest

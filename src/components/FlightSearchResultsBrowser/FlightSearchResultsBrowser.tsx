@@ -9,10 +9,13 @@ import EmptySearchState from "./EmptySearchState.js"
 import SearchDetailer from "../SearchDetailer/SearchDetailer.js"
 import NoFlightsFound from "./NoFlightsFound.js"
 import FlightResultsOrderBy from "../FlightResultsOrderBy/FlightResultsOrerBy.js"
+import FlightOrder from "../../model/data/FlightsOrder.js"
+import SortOrder from "../../model/data/SortOrder.js"
 
 function FlightSearchResultsBrowser() {
     const {
-        request
+        request,
+        updateRequest
     } = useFlightSearchRequest()
 
     const missingAllLocale = (
@@ -61,6 +64,9 @@ function FlightSearchResultsBrowser() {
                 premiumCostLte: request.premiumCostLte,
                 upperCostGte: request.upperCostGte,
                 upperCostLte: request.upperCostLte
+            },
+            orderBy: {
+                [request.flightCriteria ?? FlightOrder.DATE]: request.flightOrder ?? SortOrder.Ascending
             }
         }
     })
@@ -75,12 +81,7 @@ function FlightSearchResultsBrowser() {
                     Results
                 </h2>
             </div>
-            <SearchDetailer request={request} />
-            <div className={styles.resultsCount}>
-                <p>
-                    Showing 0 flights
-                </p>
-            </div>
+            <SearchDetailer request={request} resultsCount={0} />
             <NoFlightsFound />
         </div>
     }
@@ -97,14 +98,13 @@ function FlightSearchResultsBrowser() {
                 Results
             </h2>
         </div>
-        <SearchDetailer request={request} />
-        <div className={styles.resultsCount}>
-            <p>
-                Showing {response.flights.length} flights
-            </p>
-        </div>
-        <FlightResultsOrderBy orderChanged={(order) => {
-            
+        <SearchDetailer request={request} resultsCount={response.flights.length} />
+        <FlightResultsOrderBy orderChanged={(criteria, order) => {
+            updateRequest({
+                ...request,
+                flightCriteria: criteria ?? undefined,
+                flightOrder: order
+            })
         }} />
         <div className={styles.resultsList}>
             <ul>

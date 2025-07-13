@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client"
 
 const SEARCH_FLIGHTS = gql`
-    query Flights($filter: FlightFilter) {
-      flights(filter: $filter) {
+    query Flights($filter: FlightFilter, $orderBy: FlightOrderBy, $limit: Int) {
+      flights(filter: $filter, orderBy: $orderBy, limit: $limit) {
         id,
         date,
 
