@@ -87,6 +87,16 @@
     font-size: 0.95rem;
 }
 
+.minMaxRow {
+    display: flex;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.minMaxRow > * {
+    flex: 1;
+}
+
 .searchButton {
     margin-top: 1.25rem;
 }
@@ -185,5 +195,11 @@
     
     .pointFilter {
         padding: 0.75rem;
+    }
+    
+    .minMaxRow {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
     }
 }

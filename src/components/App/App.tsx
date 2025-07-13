@@ -9,7 +9,6 @@ export default function App() {
         <div className={styles.app}>
             <header className={styles.header}>
                 <h1 className={styles.title}>✈️ Flight Rewards Finder</h1>
-                <p className={styles.subtitle}>Discover amazing flight deals using your points and miles</p>
             </header>
             <main className={styles.main}>
                 <FlightSearchRequestProvider>

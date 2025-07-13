@@ -124,52 +124,58 @@ function FlightSearchForm() {
                     <h3>
                         Economy
                     </h3>
-                    <NumberInput label="Minimum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            economyCostGte: value
-                        })
-                    }}/>
-                    <NumberInput label="Maximum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            economyCostLte: value
-                        })
-                    }}/>
+                    <div className={styles.minMaxRow}>
+                        <NumberInput label="Minimum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                economyCostGte: value
+                            })
+                        }}/>
+                        <NumberInput label="Maximum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                economyCostLte: value
+                            })
+                        }}/>
+                    </div>
                 </div>
                 <div className={styles.pointFilter}>
                     <h3>
                         Premium
                     </h3>
-                    <NumberInput label="Minimum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            premiumCostGte: value
-                        })
-                    }}/>
-                    <NumberInput label="Maximum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            premiumCostLte: value
-                        })
-                    }}/>
+                    <div className={styles.minMaxRow}>
+                        <NumberInput label="Minimum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                premiumCostGte: value
+                            })
+                        }}/>
+                        <NumberInput label="Maximum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                premiumCostLte: value
+                            })
+                        }}/>
+                    </div>
                 </div>
                 <div className={styles.pointFilter}>
                     <h3>
                         Upper Class
                     </h3>
-                    <NumberInput label="Minimum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            upperCostGte: value
-                        })
-                    }}/>
-                    <NumberInput label="Maximum"  onChange={value => {
-                        updateRequest({
-                            ...request,
-                            upperCostLte: value
-                        })
-                    }}/>
+                    <div className={styles.minMaxRow}>
+                        <NumberInput label="Minimum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                upperCostGte: value
+                            })
+                        }}/>
+                        <NumberInput label="Maximum"  onChange={value => {
+                            updateRequest({
+                                ...request,
+                                upperCostLte: value
+                            })
+                        }}/>
+                    </div>
                 </div>
             </div>
         </div>
