@@ -2,15 +2,17 @@ import { useState } from "react";
 import styles from "./FlightResultsOrderBy.module.css"
 import FlightOrder from "../../model/data/FlightsOrder.js"
 import SortOrder from "../../model/data/SortOrder.js"
-import { cs_if } from "../../helpers/Styles.js";
 
 export interface FlightResultsOrderByProps {
+    selectedCriteria?: FlightOrder | null
+    selectedOrder?: SortOrder
+
     orderChanged: (criteria: FlightOrder | null, order: SortOrder) => void;
 }
 
 function FlightResultsOrderBy(props: FlightResultsOrderByProps) {
-    const [orderCriteria, setOrderCriteria] = useState<FlightOrder | null>(FlightOrder.DATE)
-    const [order, setOrder] = useState<SortOrder>(SortOrder.Ascending)
+    const [orderCriteria, setOrderCriteria] = useState<FlightOrder | null>(props.selectedCriteria ?? FlightOrder.DATE)
+    const [order, setOrder] = useState<SortOrder>(props.selectedOrder ?? SortOrder.Ascending)
 
     const orderSelected = (criteria: FlightOrder) => {
         // if this criteria is not selected then set it and the order to ascending

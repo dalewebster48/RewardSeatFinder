@@ -99,13 +99,17 @@ function FlightSearchResultsBrowser() {
             </h2>
         </div>
         <SearchDetailer request={request} resultsCount={response.flights.length} />
-        <FlightResultsOrderBy orderChanged={(criteria, order) => {
-            updateRequest({
-                ...request,
-                flightCriteria: criteria ?? undefined,
-                flightOrder: order
-            })
-        }} />
+        <FlightResultsOrderBy
+            selectedCriteria={request.flightCriteria}
+            selectedOrder={request.flightOrder}
+            orderChanged={(criteria, order) => {
+                updateRequest({
+                    ...request,
+                    flightCriteria: criteria ?? undefined,
+                    flightOrder: order
+                })
+            }}
+        />
         <div className={styles.resultsList}>
             <ul>
                 {resultsItems}
