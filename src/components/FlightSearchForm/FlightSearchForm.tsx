@@ -10,7 +10,6 @@ import { NumberInput } from "../Form/Form.js"
 import styles from "./FlightSearchForm.module.css"
 
 function FlightSearchForm() {
-
     const { data } = useSuspenseQuery(GET_AIRPORTS, {})
     const airportData = data as AirportResponse
     const {
