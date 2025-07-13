@@ -7,7 +7,7 @@
     "client": "vite",
     "client-build": "vite build",
     "client-preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run client-build",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
