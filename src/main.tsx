@@ -5,7 +5,7 @@ import App from './components/App/App.js';
 import './styles.css';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000', // Your GraphQL server URL
+  uri: 'http://178.62.13.89', // Your GraphQL server URL
   cache: new InMemoryCache(),
 });
 
