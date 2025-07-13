@@ -13,10 +13,10 @@ const getApolloUri = () => {
 
     if (isProduction) {
         // Production - your DigitalOcean server
-        return 'http://178.62.13.89/graphql';
+        return 'http://178.62.13.89:81/';
     } else {
         // Development - local server
-        return 'http://localhost:4000/graphql';
+        return 'http://localhost:4000/';
     }
 };
 
