@@ -31,7 +31,7 @@ export const FlightSearchRequestProvider = (props: FlightSearchProviderProps) =>
 export const useFlightSearchRequest = () => {
     const context = useContext(FlightSearchContexet)
     if (!context) {
-        throw new Error('useFlightSearchRequest must be used within a ThemeProvider')
+        throw new Error('useFlightSearchRequest must be used within a FlightSearchRequestProvider')
     }
 
     return context

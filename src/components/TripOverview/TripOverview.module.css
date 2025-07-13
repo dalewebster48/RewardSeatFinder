@@ -1,0 +1,127 @@
+.overview {
+    background: linear-gradient(135deg, var(--secondary-purple-light) 0%, var(--primary-blue-light) 100%);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--primary-blue-light);
+    animation: slideIn 0.5s ease-out;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overview h3 {
+    margin: 0 0 1rem 0;
+    color: var(--gray-900);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.overview ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.overview li {
+    position: relative;
+    flex-shrink: 0;
+    animation: cardSlideIn 0.4s ease-out;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.overview li:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1;
+    background: var(--gray-50);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--primary-blue-light);
+}
+
+/* Custom scrollbar for horizontal scroll */
+.overview ul::-webkit-scrollbar {
+    height: 6px;
+}
+
+.overview ul::-webkit-scrollbar-track {
+    background: var(--gray-200);
+    border-radius: var(--radius-sm);
+}
+
+.overview ul::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: var(--radius-sm);
+}
+
+.overview ul::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-blue-hover);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .overview {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        position: sticky;
+        top: 0;
+        border-radius: var(--radius-lg); /* Slightly less rounded on mobile */
+    }
+    
+    .overview h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .overview ul {
+        gap: 0.75rem;
+    }
+    
+    .overview li:not(:last-child)::after {
+        right: -0.625rem;
+        font-size: 1.25rem;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}

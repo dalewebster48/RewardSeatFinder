@@ -27,12 +27,18 @@
 
 .main {
     display: flex;
+    flex-direction: column;
     flex: 1;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
+    padding: 1rem 1.5rem 2rem 1.5rem;
+}
+
+.searchContainer {
+    display: flex;
     gap: 2rem;
-    padding: 2rem 1.5rem;
+    position: relative;
 }
 
 .searchForm {
@@ -76,8 +82,11 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .main {
-        flex-direction: column;
         padding: 1rem;
+    }
+    
+    .searchContainer {
+        flex-direction: column;
         gap: 1.5rem;
     }
     

@@ -15,9 +15,11 @@ const SEARCH_FLIGHTS = gql`
         upper_deal
 
         start {
+          id
           name
         }
         end {
+          id
           name
         }
       }

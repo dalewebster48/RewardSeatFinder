@@ -4,8 +4,8 @@
     box-shadow: var(--shadow-lg);
     padding: 1.5rem;
     position: sticky;
-    top: 2rem;
-    max-height: calc(100vh - 4rem);
+    top: 180px; /* Adjusted to account for sticky TripOverview */
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -173,8 +173,8 @@
 
 @media (max-height: 800px) {
     .container {
-        max-height: calc(100vh - 3rem);
-        top: 1.5rem;
+        max-height: calc(100vh - 220px);
+        top: 160px;
     }
     
     .container h2 {

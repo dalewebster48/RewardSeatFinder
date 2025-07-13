@@ -59,6 +59,59 @@
     color: var(--gray-700);
 }
 
+.classInfo {
+    flex: 1;
+}
+
+.classButton {
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+.classButton:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.classButton:active {
+    transform: translateY(0);
+}
+
+/* Economy tier button - blue */
+.points > div:nth-child(1) .classButton {
+    background: var(--primary-blue);
+}
+
+.points > div:nth-child(1) .classButton:hover {
+    background: var(--primary-blue-hover);
+}
+
+/* Premium tier button - purple */
+.points > div:nth-child(2) .classButton {
+    background: var(--secondary-purple);
+}
+
+.points > div:nth-child(2) .classButton:hover {
+    background: var(--secondary-purple-hover);
+}
+
+/* Upper tier button - green */
+.points > div:nth-child(3) .classButton {
+    background: var(--success);
+}
+
+.points > div:nth-child(3) .classButton:hover {
+    background: var(--success-hover);
+}
+
 .points > div:nth-child(2) {
     border-left-color: var(--secondary-purple);
 }
