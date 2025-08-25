@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   pull_request:
     types: [closed]
-    branches: [dev]  # or whatever your production branch is
+    branches: [main]  # or whatever your production branch is
 
 jobs:
   deploy:
