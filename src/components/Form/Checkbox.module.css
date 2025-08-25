@@ -26,19 +26,21 @@
 }
 
 .box.selected {
-    background-color: var(--primary-blue);
-    border-color: var(--primary-blue);
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    border-width: 3px;
 }
 
 .box.selected::after {
     content: '✓';
     color: white;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
 }
 
 .checkbox:hover .box {
-    border-color: var(--primary-blue);
+    border-color: var(--primary-hover);
 }
 
 .label {
