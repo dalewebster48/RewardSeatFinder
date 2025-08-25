@@ -49,11 +49,114 @@
     transform: scale(1.05);
 }
 
+.navButton.disabled,
+.navButton:disabled {
+    background: var(--gray-200);
+    color: var(--gray-400);
+    border-color: var(--gray-300);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.navButton.disabled:hover,
+.navButton:disabled:hover {
+    background: var(--gray-200);
+    color: var(--gray-400);
+    border-color: var(--gray-300);
+    transform: none;
+}
+
+.monthTitleContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .monthTitle {
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--primary);
     margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.monthTitle:hover {
+    background: var(--primary-light);
+}
+
+.dropdownArrow {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.monthDropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    min-width: 200px;
+    margin-top: 0.5rem;
+}
+
+.monthOption {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: white;
+    color: var(--gray-700);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.monthOption:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.monthOption:first-child {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.monthOption:last-child {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.currentMonthOption {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+.currentMonthOption:hover {
+    background: var(--primary-hover) !important;
+}
+
+.yearSeparator {
+    padding: 0.5rem 1rem;
+    background: var(--gray-100);
+    color: var(--gray-600);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
 }
 
 .dayNames {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './CalendarGrid.module.css'
 
 export interface CalendarGridProps {
@@ -17,15 +17,32 @@ interface CalendarDay {
     isEndDate: boolean
 }
 
+const formatDate = (date: Date) => date.toISOString().split('T')[0]
+
 function CalendarGrid(props: CalendarGridProps) {
     const [currentMonth, setCurrentMonth] = useState(new Date())
     const [startDate, setStartDate] = useState<Date | null>(null)
     const [endDate, setEndDate] = useState<Date | null>(null)
+    const [showMonthDropdown, setShowMonthDropdown] = useState(false)
+    const dropdownRef = useRef<HTMLDivElement>(null)
+    
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowMonthDropdown(false)
+            }
+        }
+        
+        if (showMonthDropdown) {
+            document.addEventListener('mousedown', handleClickOutside)
+            return () => document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [showMonthDropdown])
     
     // Call the callback directly when dates change, not in useEffect
     const updateDateRange = (start: Date | null, end: Date | null) => {
         if (start && end) {
-            const formatDate = (date: Date) => date.toISOString().split('T')[0]
             props.onDateRangeChange(formatDate(start), formatDate(end))
         }
     }
@@ -126,11 +143,25 @@ function CalendarGrid(props: CalendarGridProps) {
     }
     
     const goToPreviousMonth = () => {
-        setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
+        const today = new Date()
+        const newMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1)
+        
+        // Don't go before current month
+        if (newMonth.getFullYear() > today.getFullYear() || 
+            (newMonth.getFullYear() === today.getFullYear() && newMonth.getMonth() >= today.getMonth())) {
+            setCurrentMonth(newMonth)
+        }
     }
     
     const goToNextMonth = () => {
-        setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
+        const today = new Date()
+        const maxMonth = new Date(today.getFullYear(), today.getMonth() + 12)
+        const newMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
+        
+        // Don't go beyond 12 months from now
+        if (newMonth <= maxMonth) {
+            setCurrentMonth(newMonth)
+        }
     }
     
     const monthNames = [
@@ -142,6 +173,14 @@ function CalendarGrid(props: CalendarGridProps) {
     
     const calendarDays = generateCalendarDays(currentMonth)
     
+    // Determine if navigation buttons should be disabled
+    const today = new Date()
+    const isAtMinMonth = currentMonth.getFullYear() === today.getFullYear() && 
+                        currentMonth.getMonth() === today.getMonth()
+    const maxMonth = new Date(today.getFullYear(), today.getMonth() + 12)
+    const isAtMaxMonth = currentMonth.getFullYear() >= maxMonth.getFullYear() && 
+                        currentMonth.getMonth() >= maxMonth.getMonth()
+    
     return (
         <div className={styles.container}>
             {props.label && (
@@ -152,18 +191,63 @@ function CalendarGrid(props: CalendarGridProps) {
                 <div className={styles.header}>
                     <button 
                         type="button"
-                        className={styles.navButton}
+                        className={`${styles.navButton} ${isAtMinMonth ? styles.disabled : ''}`}
                         onClick={goToPreviousMonth}
+                        disabled={isAtMinMonth}
                     >
                         ‹
                     </button>
-                    <h3 className={styles.monthTitle}>
-                        {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-                    </h3>
+                    <div className={styles.monthTitleContainer} ref={dropdownRef}>
+                        <button
+                            type="button"
+                            className={styles.monthTitle}
+                            onClick={() => setShowMonthDropdown(!showMonthDropdown)}
+                        >
+                            {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                            <span className={styles.dropdownArrow}>▼</span>
+                        </button>
+                        
+                        {showMonthDropdown && (
+                            <div className={styles.monthDropdown}>
+                                {/* Generate months from current month for next 13 months (current + 12 future) */}
+                                {Array.from({ length: 13 }, (_, i) => {
+                                    const today = new Date()
+                                    const monthDate = new Date(today.getFullYear(), today.getMonth() + i, 1)
+                                    const monthIndex = monthDate.getMonth()
+                                    const year = monthDate.getFullYear()
+                                    const isCurrentMonth = i === 0
+                                    const needsYearSeparator = i > 0 && monthIndex === 0
+                                    
+                                    return (
+                                        <div key={`month-${year}-${monthIndex}`}>
+                                            {needsYearSeparator && (
+                                                <div className={styles.yearSeparator}>
+                                                    {year}
+                                                </div>
+                                            )}
+                                            <button
+                                                type="button"
+                                                className={`${styles.monthOption} ${
+                                                    isCurrentMonth ? styles.currentMonthOption : ''
+                                                }`}
+                                                onClick={() => {
+                                                    setCurrentMonth(new Date(year, monthIndex, 1))
+                                                    setShowMonthDropdown(false)
+                                                }}
+                                            >
+                                                {monthNames[monthIndex]} {year}
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
+                    </div>
                     <button 
                         type="button"
-                        className={styles.navButton}
+                        className={`${styles.navButton} ${isAtMaxMonth ? styles.disabled : ''}`}
                         onClick={goToNextMonth}
+                        disabled={isAtMaxMonth}
                     >
                         ›
                     </button>
@@ -217,29 +301,23 @@ function CalendarGrid(props: CalendarGridProps) {
                     type="button"
                     className={styles.quickButton}
                     onClick={() => {
+                        // Set range to entire current month being viewed
+                        const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1)
+                        const lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0)
+                        
+                        // If we're viewing current month, start from today instead of 1st
                         const today = new Date()
-                        const nextWeek = new Date(today)
-                        nextWeek.setDate(today.getDate() + 7)
-                        setStartDate(today)
-                        setEndDate(nextWeek)
-                        updateDateRange(today, nextWeek)
+                        today.setHours(0, 0, 0, 0)
+                        const startDate = (currentMonth.getFullYear() === today.getFullYear() && 
+                                         currentMonth.getMonth() === today.getMonth()) 
+                                         ? today : firstDayOfMonth
+                        
+                        setStartDate(startDate)
+                        setEndDate(lastDayOfMonth)
+                        updateDateRange(startDate, lastDayOfMonth)
                     }}
                 >
-                    Next 7 days
-                </button>
-                <button 
-                    type="button"
-                    className={styles.quickButton}
-                    onClick={() => {
-                        const today = new Date()
-                        const nextMonth = new Date(today)
-                        nextMonth.setMonth(today.getMonth() + 1)
-                        setStartDate(today)
-                        setEndDate(nextMonth)
-                        updateDateRange(today, nextMonth)
-                    }}
-                >
-                    Next 30 days
+                    This entire month
                 </button>
                 <button 
                     type="button"
