@@ -1,5 +1,5 @@
 import AirportPicker from "../AirportPicker/AirportPicker.js"
-import DatePicker from "../Form/DatePicker.js"
+import CalendarGrid from "../Form/CalendarGrid.js"
 import Checkbox from "../Form/Checkbox.js"
 import GET_AIRPORTS from "../../data/queries/get_airports.js"
 import { useSuspenseQuery } from "@apollo/client"
@@ -106,28 +106,16 @@ function FlightSearchForm() {
                 </div>
             </div>
             <div className={styles.dateSelectors}>
-                <div className={styles.dateSelector}>
-                    <h2>
-                        From
-                    </h2>
-                    <DatePicker onChange={date => {
+                <CalendarGrid 
+                    label="When do you want to travel?"
+                    onDateRangeChange={(startDate, endDate) => {
                         updateRequest({
                             ...request,
-                            dateAfterInclusive: date
+                            dateAfterInclusive: startDate,
+                            dateBeforeInclusive: endDate
                         })
-                    }}/>
-                </div>
-                <div className={styles.dateSelector}>
-                    <h2>
-                        Up To
-                    </h2>
-                    <DatePicker onChange={date => {
-                        updateRequest({
-                            ...request,
-                            dateBeforeInclusive: date
-                        })
-                    }}/>
-                </div>
+                    }}
+                />
             </div>
             <div className={styles.dealPickers}>
                 <h2>
