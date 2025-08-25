@@ -25,11 +25,12 @@
 }
 
 .item.selected {
-    background-color: var(--primary-blue);
-    color: white;
+    background-color: var(--primary-light);
+    color: var(--primary);
     font-weight: 600;
 }
 
 .item.selected:hover {
-    background-color: var(--primary-blue-hover);
+    background-color: var(--primary);
+    color: white;
 }

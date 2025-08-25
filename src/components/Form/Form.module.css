@@ -13,8 +13,8 @@
 }
 
 .textInputContainer input[type="text"]:focus {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px var(--primary-blue-light);
+    border-color: var(--gray-400);
+    box-shadow: 0 0 0 3px var(--secondary-orange-light);
     outline: none;
 }
 
@@ -45,8 +45,8 @@
 }
 
 .numberInputContainer input[type="number"]:focus {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px var(--primary-blue-light);
+    border-color: var(--gray-400);
+    box-shadow: 0 0 0 3px var(--secondary-orange-light);
     outline: none;
 }
 

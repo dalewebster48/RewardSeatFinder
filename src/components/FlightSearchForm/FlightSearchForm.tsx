@@ -6,6 +6,8 @@ import { useSuspenseQuery } from "@apollo/client"
 import AirportResponse from "../../model/responses/GetAirportsResponse.js"
 import { useFlightSearchRequest } from "../../model/providers/FlightSearchProvider.js"
 import { NumberInput } from "../Form/Form.js"
+import { useState, useCallback, useEffect, useRef } from "react"
+import Airport from "../../model/data/Airport.js"
 
 import styles from "./FlightSearchForm.module.css"
 
@@ -16,6 +18,46 @@ function FlightSearchForm() {
         request,
         updateRequest
     } = useFlightSearchRequest()
+
+    // Local state for batching updates
+    const [startCountry, setStartCountry] = useState<string | null>(null)
+    const [startAirport, setStartAirport] = useState<Airport | null>(null)
+    const [endCountry, setEndCountry] = useState<string | null>(null)
+    const [endAirport, setEndAirport] = useState<Airport | null>(null)
+
+    // Debounce timer ref
+    const debounceTimerRef = useRef<number | null>(null)
+
+    // Debounced update function
+    const debouncedUpdateRequest = useCallback(() => {
+        if (debounceTimerRef.current) {
+            clearTimeout(debounceTimerRef.current)
+        }
+        
+        debounceTimerRef.current = setTimeout(() => {
+            updateRequest({
+                ...request,
+                startCountry: startCountry ?? undefined,
+                startId: startAirport?.id,
+                endCountry: endCountry ?? undefined,
+                endId: endAirport?.id
+            })
+        }, 300) // 300ms debounce delay
+    }, [request, startCountry, startAirport, endCountry, endAirport, updateRequest])
+
+    // Trigger debounced update when location state changes
+    useEffect(() => {
+        debouncedUpdateRequest()
+    }, [startCountry, startAirport, endCountry, endAirport, debouncedUpdateRequest])
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (debounceTimerRef.current) {
+                clearTimeout(debounceTimerRef.current)
+            }
+        }
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -38,16 +80,12 @@ function FlightSearchForm() {
                     <AirportPicker
                         airports={airportData.airports}
                         onSelectCountry={country => {
-                            updateRequest({
-                                ...request,
-                                startCountry: country ?? undefined
-                            })
+                            setStartCountry(country)
+                            debouncedUpdateRequest()
                         }}
                         onSelectedAirport={airport => {
-                            updateRequest({
-                                ...request,
-                                startId: airport?.id
-                            })
+                            setStartAirport(airport)
+                            debouncedUpdateRequest()
                         }} />
                 </div>
                 <div className={styles.airportSelector}>
@@ -57,16 +95,12 @@ function FlightSearchForm() {
                     <AirportPicker
                         airports={airportData.airports}
                         onSelectCountry={country => {
-                            updateRequest({
-                                ...request,
-                                endCountry: country ?? undefined
-                            })
+                            setEndCountry(country)
+                            debouncedUpdateRequest()
                         }}
                         onSelectedAirport={airport => {
-                            updateRequest({
-                                ...request,
-                                endId: airport?.id
-                            })
+                            setEndAirport(airport)
+                            debouncedUpdateRequest()
                         }}
                     />
                 </div>
