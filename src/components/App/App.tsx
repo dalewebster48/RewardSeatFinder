@@ -7,6 +7,7 @@ import { Suspense } from "react"
 export default function App() {
     return (
         <div className={styles.app}>
+            This is in prod
             <main className={styles.main}>
                 <FlightSearchRequestProvider>
                     <div className={styles.searchForm}>

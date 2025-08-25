@@ -1,0 +1,40 @@
+name: Deploy to Production
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [prod]  # or whatever your production branch is
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build project
+      run: npm run client-build
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /var/www/RewardSeatFinder
+          git pull origin main
+          npm ci
+          npm run client-build
+          sudo systemctl restart nginx  # or however you serve it
