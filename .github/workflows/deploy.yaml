@@ -34,7 +34,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /var/www/RewardSeatFinder
-          git pull origin main
+          git pull origin prod
           npm ci
           npm run client-build
           sudo systemctl restart nginx  # or however you serve it
