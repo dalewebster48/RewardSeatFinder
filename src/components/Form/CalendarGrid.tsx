@@ -4,6 +4,7 @@ import styles from './CalendarGrid.module.css'
 export interface CalendarGridProps {
     onDateRangeChange: (startDate: string, endDate: string) => void
     label?: string
+    clearTrigger?: number // Increment this to trigger a clear
 }
 
 interface CalendarDay {
@@ -39,6 +40,14 @@ function CalendarGrid(props: CalendarGridProps) {
             return () => document.removeEventListener('mousedown', handleClickOutside)
         }
     }, [showMonthDropdown])
+    
+    // Clear calendar when clearTrigger changes
+    useEffect(() => {
+        if (props.clearTrigger !== undefined && props.clearTrigger > 0) {
+            setStartDate(null)
+            setEndDate(null)
+        }
+    }, [props.clearTrigger])
     
     // Call the callback directly when dates change, not in useEffect
     const updateDateRange = (start: Date | null, end: Date | null) => {

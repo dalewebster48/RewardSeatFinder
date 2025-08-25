@@ -61,17 +61,17 @@ function FlightSearchForm() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.clearSection}>
+            {/* <div className={styles.clearSection}>
                 <button 
                     type="button" 
                     className={styles.clearButton}
                     onClick={() => {
-                        updateRequest({})
+                        // dunno how to implement this
                     }}
                 >
                     🗑️ Clear All Filters
                 </button>
-            </div>
+            </div> */}
             <div className={styles.airportSelectors}>
                 <div className={styles.airportSelector}>
                     <h2>
